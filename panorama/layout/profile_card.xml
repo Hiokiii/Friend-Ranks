@@ -1,0 +1,60 @@
+<!-- Based on the current Deadlock profile card. Rebase after Deadlock UI updates. -->
+<root>
+    <styles>
+        <include src="s2r://panorama/styles/citadel_base_styles.vcss_c" />
+        <include src="s2r://panorama/styles/profile_card.vcss_c" />
+        <include src="s2r://panorama/styles/friends_rank.vcss_c" />
+    </styles>
+    <scripts>
+        <include src="s2r://panorama/scripts/friends_rank_config.vjs_c" />
+        <include src="s2r://panorama/scripts/friends_rank.vjs_c" />
+    </scripts>
+    <CitadelProfileCard class="FriendsRankProfileCardRoot" onmouseover="if ($.FriendsRankRefreshProfile) $.FriendsRankRefreshProfile('profile_card_mouseover');">
+        <Panel id="MiniProfileContainer" class="TopBottomFlow">
+            <Panel id="ContentsMain">
+                <Panel id="ContentsMainBackground" />
+                <Panel id="ContentsMainForeground">
+                    <Panel id="AccountID">
+                        <Label id="FriendsRankVisibleAccountID" class="AccountID" text="#Citadel_ProfileCard_AccountID" />
+                        <Label id="FriendsRankHiddenAccountID" class="FriendsRankHiddenAccountID" text="{i:r:account_id}" hittest="false" />
+                        <Panel id="FriendsRankRoot" class="FriendsRankRoot FriendsRankPopup FriendsRankStateWaiting" hittest="false">
+                            <Panel id="FriendsRankPlaceholder" class="FriendsRankPlaceholder" hittest="false">
+                                <Panel class="FriendsRankLoaderSlot" hittest="false">
+                                    <Image id="FriendsRankLoaderBadge" class="FriendsRankLoaderBadge" src="s2r://panorama/images/ranked/badges/rank00_lg_psd.vtex" scaling="stretch-to-fit-preserve-aspect" hittest="false" />
+                                    <Panel id="FriendsRankSpinner" class="FriendsRankSpinner Spinner" hittest="false" />
+                                </Panel>
+                            </Panel>
+                            <Panel id="FriendsRankMediaHost" class="FriendsRankMediaHost" hittest="false" />
+                        </Panel>
+                    </Panel>
+                    <Panel id="HeroInfo"><CitadelHeroImage id="HeroImage" /><Label class="HeroName" text="{g:citadel_hero_name:HeroName}" /></Panel>
+                    <Panel id="CardHeader">
+                        <Panel id="AccountArea">
+                            <CitadelAvatarImage id="AvatarImage" />
+                            <Panel class="ProfileTextDetails">
+                                <Panel class="LeftRightFlow NameContainer"><CitadelUserName id="UserName" /></Panel>
+                                <Panel class="LeftRightFlow nicknameContainer"><CitadelUserName id="UserNickname" /><CitadelUserRichPresence id="UserRichPresence" /></Panel>
+                            </Panel>
+                        </Panel>
+                    </Panel>
+                    <Panel id="CardMain">
+                        <Panel id="CardLoading"><Panel class="Spinner" /></Panel>
+                        <Panel id="CardContents"><Panel id="Showcase"><Panel id="ShowcaseItems" /></Panel><Panel id="BottomRow" class="SimpleBevel"><Panel id="StatItems" /></Panel></Panel>
+                    </Panel>
+                    <Button id="FriendsRankStatlockerPopupButton" class="FriendsRankStatlockerButton FriendsRankStatlockerPopupButton" hittest="false" enabled="false" onactivate="if ($.FriendsRankRefreshProfile) $.FriendsRankRefreshProfile('open_statlocker');">
+                        <Panel class="FriendsRankStatlockerLogo" hittest="false" />
+                        <Label text="View Statlocker Profile" />
+                    </Button>
+                    <Panel id="PartyInfo">
+                        <Panel id="InMatchmakingBanner" class="PartyStateBanner"><Label class="PartyStateBannerText" text="#Citadel_ProfileCard_PartyMatchmaking" /></Panel>
+                        <Panel id="InviteBanner" class="PartyStateBanner"><Label class="PartyStateBannerText" text="#Citadel_ProfileCard_PartyInvited" /></Panel>
+                        <Panel id="NotReadyBanner" class="PartyStateBanner"><Label class="PartyStateBannerText" text="#Citadel_ProfileCard_PartyNotReady" /></Panel>
+                        <Panel id="ReadyBanner" class="PartyStateBanner"><Label class="PartyStateBannerText" text="#Citadel_ProfileCard_PartyReady" /></Panel>
+                        <Panel id="RosterSection"><Label class="RosterTitle" text="#Citadel_ProfileCard_PartyRoster" /><Panel id="RosterList" /></Panel>
+                    </Panel>
+                </Panel>
+            </Panel>
+        </Panel>
+        <Panel id="CardOverlay" hittest="false"><Panel id="ProfileBadgeBackground" /></Panel>
+    </CitadelProfileCard>
+</root>
