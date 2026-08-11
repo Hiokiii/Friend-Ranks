@@ -106,6 +106,8 @@ assert(runtime.includes('"ImageLoaded"') && runtime.includes('"ImageFailedLoad"'
 assert(runtime.includes('setRootState(root, "FriendsRankStateUnavailable", "")'), "El fallo de imagen no activa Obscurus");
 assert(runtime.includes('hasClass(panel, "isLocalPlayer")'), "Falta soporte para popup local");
 assert(runtime.includes("friends_rank_terminal_account"), "Falta estado terminal contra loops");
+assert(runtime.includes("friends_rank_requested_account") && runtime.includes("friends_rank_requested_fingerprint"), "Falta deduplicar la solicitud de rango en vuelo");
+assert(runtime.includes("isMainProfile(root) && config.activeWatchMs"), "El watcher temporal del popup todavia expira");
 assert(!runtime.includes("rank-predict"), "Runtime contiene rank-predict obsoleto");
 
 for (const forbidden of ["fetch(", "XMLHttpRequest", "AsyncWebRequest", ".src =", "setInterval(", "Loading...", "Rango no disponible", "Buscando rango", "127.0.0.1", "/v1/rank-card", "display=card", "helperBaseUrl", "buildHelperRankCardUrl", "buildRankDataUrl", "buildSubrankImageUrl"]) {
