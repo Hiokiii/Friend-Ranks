@@ -135,6 +135,28 @@ test("popup espera dos identidades estables y solo aparece después de ImageLoad
   assert.equal(ui.root.attributes.friends_rank_rendered_account, "81465520");
 });
 
+test("popup keeps only one rank request in flight", () => {
+  const ui = createPanoramaHarness();
+  ui.dollar.FriendsRankRefreshProfile("profile_card_mouseover");
+  ui.run(40);
+  assert.equal(ui.createdPanels(), 1);
+  assert.equal(ui.badge().setImageCalls, 1);
+  assert.equal(ui.root.attributes.friends_rank_requested_account, "81465520");
+});
+
+test("popup watcher detects another player after eight seconds", () => {
+  const ui = createPanoramaHarness("81465520");
+  ui.dollar.FriendsRankRefreshProfile("profile_card_mouseover");
+  ui.run(10);
+  ui.badge().emit("ImageLoaded");
+  ui.advance(9000);
+  ui.hidden.text = "[U:1:110064047]";
+  ui.root.FindChildTraverse("FriendsRankVisibleAccountID").text = "Account ID: 110064047";
+  ui.username.text = "Another Player";
+  ui.run(30);
+  assert.equal(ui.badge().image, "https://api.deadlock-api.com/v1/players/110064047/rank/image?format=webp");
+});
+
 test("A→B elimina A y un ImageLoaded tardío no puede reaparecer", () => {
   const ui = createPanoramaHarness("81465520");
   ui.dollar.FriendsRankRefreshProfile("profile_card_mouseover");

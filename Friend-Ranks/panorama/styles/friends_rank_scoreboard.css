@@ -7,7 +7,7 @@
 
 .FriendsRankStatlockerSlot
 {
-    width: 52px;
+    width: 48px;
     height: 48px;
     margin-right: 4px;
     vertical-align: middle;
@@ -15,10 +15,17 @@
 
 .FriendsRankCommendSlot
 {
-    width: 52px;
+    width: 0px;
     height: 48px;
-    margin-right: 4px;
     vertical-align: middle;
+    overflow: clip;
+}
+
+.CanCommendPlayers .FriendsRankCommendSlot
+{
+    width: 48px;
+    margin-right: 4px;
+    overflow: noclip;
 }
 
 .FriendsRankCommendSlot .CommendColumn
@@ -26,6 +33,13 @@
     horizontal-align: center;
     vertical-align: middle;
     margin-right: 0px;
+}
+
+/* The added 52px action column is reclaimed from Valve's 320px identity
+   area, keeping every stat under its native table header. */
+.FriendsRankPostGameScoreboard .PlayerInfoContainer
+{
+    width: 268px;
 }
 
 .FriendsRankScoreboardButton

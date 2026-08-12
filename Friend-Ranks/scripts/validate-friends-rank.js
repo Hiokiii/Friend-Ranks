@@ -40,6 +40,7 @@ const scoreboardXml = read("panorama/layout/post_game/citadel_db_post_game_score
 const postGameTeamXml = read("panorama/layout/post_game/citadel_db_post_game_team.xml");
 const scoreboardCss = read("panorama/styles/friends_rank_scoreboard.css");
 const scoreboardRuntime = read("panorama/scripts/friends_rank_scoreboard.js");
+const statlockerVtex = read("panorama/images/friends_rank/statlocker_logo_green.vtex");
 
 for (const fragment of ["friends_rank.vcss_c", "friends_rank_config.vjs_c", "friends_rank.vjs_c", 'id="FriendsRankRoot"', 'id="FriendsRankHiddenAccountID"', 'id="FriendsRankVisibleAccountID"', 'id="FriendsRankStatlockerPopupButton"', 'class="FriendsRankStatlockerLogo"', 'id="FriendsRankLoaderBadge"', 'id="FriendsRankMediaHost"', "rank00_lg_psd.vtex", "$.FriendsRankRefreshProfile"]) {
   assert(xml.includes(fragment), `profile_card.xml no contiene ${fragment}`);
@@ -72,6 +73,7 @@ for (const selector of [".FriendsRankRoot", ".FriendsRankBadge", ".FriendsRankLo
   assert(css.includes(selector), `CSS no contiene ${selector}`);
 }
 assert(css.includes(".FriendsRankStatlockerLogo") && css.includes("opacity-mask: url(\"s2r://panorama/images/friends_rank/statlocker_logo_green.vtex\")"), "El logo de Statlocker debe renderizarse como mascara sin fondo");
+assert(statlockerVtex.includes('"m_bNoLod" "bool" "1"'), "El logo NPOT de Statlocker debe compilarse sin niveles LOD");
 
 assert(config.includes("version: 16"), "La configuracion debe usar revision v16");
 assert(config.includes("debug: false"), "Los logs deben estar desactivados");
@@ -106,6 +108,8 @@ assert(runtime.includes('"ImageLoaded"') && runtime.includes('"ImageFailedLoad"'
 assert(runtime.includes('setRootState(root, "FriendsRankStateUnavailable", "")'), "El fallo de imagen no activa Obscurus");
 assert(runtime.includes('hasClass(panel, "isLocalPlayer")'), "Falta soporte para popup local");
 assert(runtime.includes("friends_rank_terminal_account"), "Falta estado terminal contra loops");
+assert(runtime.includes("friends_rank_requested_account") && runtime.includes("friends_rank_requested_fingerprint"), "Falta deduplicar la solicitud de rango en vuelo");
+assert(runtime.includes("isMainProfile(root) && config.activeWatchMs"), "El watcher temporal del popup todavia expira");
 assert(!runtime.includes("rank-predict"), "Runtime contiene rank-predict obsoleto");
 
 for (const forbidden of ["fetch(", "XMLHttpRequest", "AsyncWebRequest", ".src =", "setInterval(", "Loading...", "Rango no disponible", "Buscando rango", "127.0.0.1", "/v1/rank-card", "display=card", "helperBaseUrl", "buildHelperRankCardUrl", "buildRankDataUrl", "buildSubrankImageUrl"]) {
