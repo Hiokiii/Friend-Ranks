@@ -1,4 +1,4 @@
-# Better FOV (Experimental)
+# Extra FOV (Experimental)
 
 Adds a separate **Extended FOV Scale** slider to Deadlock's Camera settings while leaving Valve's native **Camera FOV** slider unchanged.
 
